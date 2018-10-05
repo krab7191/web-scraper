@@ -1,0 +1,37 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "A web scraper using mongoose, cheerio and handlebars",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krab7191/web-scraper.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongoose",
+    "handlebars",
+    "web",
+    "scrape",
+    "webscraper"
+  ],
+  "author": "Karsten Rabe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krab7191/web-scraper/issues"
+  },
+  "homepage": "https://github.com/krab7191/web-scraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.1"
+  }
+}
