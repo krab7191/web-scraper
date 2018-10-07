@@ -4,7 +4,11 @@
   "description": "A web scraper using mongoose, cheerio and handlebars",
   "main": "server.js",
   "scripts": {
-    "test": "npm run test"
+    "start": "node server.js",
+    "watch": "nodemon server.js --ignore public/",
+    "lint": "eslint . --ext .js",
+    "fix": "eslint --fix .",
+    "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit"
   },
   "repository": {
     "type": "git",
