@@ -1,15 +1,10 @@
 
 // Import required packages
 const express = require("express"),
-    axios = require("axios"),
-    mongoose = require("mongoose"),
-    cheerio = require("cheerio"),
+    // mongoose = require("mongoose"),
     exphbs = require("express-handlebars"),
     logger = require("morgan"),
     path = require("path");
-
-// Get all combined database models
-var db = require("./models");
 
 // Set port for Heroku
 const PORT = process.env.PORT || 9000;
@@ -30,12 +25,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routing
-require("./routes/hbRoutes")(app);
-require("./routes/apiRoutes")(app);
-
-// Connect to mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+require("./routes/routes")(app);
 
 app.listen(PORT, err => {
     if (err) { throw err; }

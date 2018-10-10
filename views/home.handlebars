@@ -1,3 +1,6 @@
-<h1>
-    {{this.message}}
-</h1>
+{{#each article}}
+<div>
+    <a href={{this.link}} target="_blank">{{this.title}}</a>
+    <p>{{this.summary}}</p>
+</div>
+{{/each}}
