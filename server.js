@@ -1,13 +1,14 @@
 
 // Import required packages
 const express = require("express"),
-    // mongoose = require("mongoose"),
+    mongoose = require("mongoose"),
     exphbs = require("express-handlebars"),
     logger = require("morgan"),
-    path = require("path");
+    path = require("path"),
+    router = require("./controllers/controller");
 
 // Set port for Heroku
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 3021;
 
 // Init app
 var app = express();
@@ -18,16 +19,22 @@ app.use(logger("dev"));
 // request handling
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Router
+app.use(router);
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 // Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Routing
-require("./routes/routes")(app);
+// Connect to mongoose
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
 
-app.listen(PORT, err => {
-    if (err) { throw err; }
-    console.log(`Server listening on port ${PORT}`);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(() => {
+    app.listen(PORT, err => {
+        if (err) { throw err; }
+        console.log(`Server listening on port ${PORT}`);
+    });
+}, err => {
+    console.log(`Mongoose connect error: ${err}`);
 });
