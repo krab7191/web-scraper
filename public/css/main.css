@@ -19,10 +19,13 @@ header, footer {
 header {
     box-shadow: 0 1px 10px 0;
     top: 0;
-    padding-bottom: 15px;
 }
 
 footer {
     padding: 15px;
     bottom: 0;
+}
+
+#keyword {
+    max-width: 350px;
 }

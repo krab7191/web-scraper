@@ -71,6 +71,7 @@ module.exports = {
             }
         }).catch((err) => {
             console.log(`Database err: ${err}`);
+            res.writeContinue(err);
         });
     },
 
@@ -102,7 +103,7 @@ module.exports = {
                 }
             }).catch((err) => {
                 console.log(`Error getting articles: ${err}`);
-                res.json(err);
+                res.writeContinue(err);
             });
     },
 
@@ -124,16 +125,16 @@ module.exports = {
             }
         }).catch((err) => {
             console.log(`DB error: ${err}`);
-            if (!res.headerSent) {
-                res.json(err);
-            }
+            res.writeContinue(err);
         });
     },
     // Search each articles title and summary section
     filterResults: function (articles, filter) {
         let results = [];
         articles.forEach(element => {
-            if (element.title.includes(filter) || element.summary.includes(filter)) {
+            // Ignore case with regex /i
+            const regex = new RegExp(filter, "i");
+            if (element.title.match(regex) || element.summary.match(regex)) {
                 results.push(element);
             }
         });
