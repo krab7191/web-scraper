@@ -8,7 +8,7 @@
     "watch": "nodemon server.js --ignore public/",
     "lint": "eslint . --ext .js",
     "fix": "eslint --fix .",
-    "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit"
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",

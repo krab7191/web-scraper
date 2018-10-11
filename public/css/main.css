@@ -1,0 +1,28 @@
+#articles {
+    max-width: 600px;
+    margin-top: 175px;
+    margin-bottom: 50px;
+    z-index: 0;
+}
+
+div * {
+    margin: 10px;
+}
+
+header, footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+header {
+    box-shadow: 0 1px 10px 0;
+    top: 0;
+    padding-bottom: 15px;
+}
+
+footer {
+    padding: 15px;
+    bottom: 0;
+}

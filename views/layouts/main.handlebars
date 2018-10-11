@@ -7,14 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Latest News</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js">
+    </script>
 </head>
 
 <body>
-    {{{body}}}
+    <header class="hero has-text-centered has-background-primary">
+        <h1 class="title">NEWSY</h1>
+        <p class="subtitle">A news aggregator for current events nerds</p>
+        <div class="container has-text-centered">
+            <form class="columns">
+                <div class="column"></div>
+                <input class="input is-pulled-left column" type="text" placeholder="example: election" id="keyword" />
+                <input class="button column" type="submit" value="Filter" id="filter" />
+                <div class="column"></div>
+            </form>
+        </div>
+    </header>
+
+    <div class="container has-text-centered" id="articles">
+        {{{body}}}
+    </div>
+
+    <footer class="has-text-centered has-background-primary">&copy; Karsten Rabe 2018</footer>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="js/front.js"></script>
+
 </body>
 
 </html>

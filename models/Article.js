@@ -20,6 +20,10 @@ const ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     // `comments` is an object that stores an array of ids
     // The ref property links the ObjectId to the Comment model
     // This allows us to populate the Article with an associated comments

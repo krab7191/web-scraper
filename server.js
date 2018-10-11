@@ -5,7 +5,7 @@ const express = require("express"),
     exphbs = require("express-handlebars"),
     logger = require("morgan"),
     path = require("path"),
-    router = require("./controllers/controller");
+    publicRoutes = require("./routes/public_routes");
 
 // Set port for Heroku
 const PORT = process.env.PORT || 3021;
@@ -19,8 +19,8 @@ app.use(logger("dev"));
 // request handling
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Router
-app.use(router);
+// Routing
+app.use(publicRoutes);
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 // Handlebars
@@ -29,7 +29,6 @@ app.set("view engine", "handlebars");
 
 // Connect to mongoose
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
-
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(() => {
     app.listen(PORT, err => {
         if (err) { throw err; }
