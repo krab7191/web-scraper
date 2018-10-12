@@ -56,7 +56,8 @@ function bindFilter() {
 }
 
 $(".article").on("click", e => {
-    var elemType = $(e.target).prop("nodeName");
+    const targ = e.target;
+    const elemType = $(targ).prop("nodeName");
     if (elemType !== "DIV") {
         console.log("It's not a div!");
     }
