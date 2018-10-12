@@ -55,3 +55,12 @@ function bindFilter() {
     })
 }
 
+$(".article").on("click", e => {
+    var elemType = $(e.target).prop("nodeName");
+    if (elemType !== "DIV") {
+        console.log("It's not a div!");
+    }
+    else {
+        console.log("It's a div!");
+    }
+});

@@ -14,9 +14,11 @@
 
 
 {{#each article}}
+{{#if title}}
 <div class="article">
     <a href={{this.link}} target="_blank" class="has-text-primary">{{this.title}}</a>
     <p>{{this.summary}}</p>
     <hr />
 </div>
+{{/if}}
 {{/each}}
