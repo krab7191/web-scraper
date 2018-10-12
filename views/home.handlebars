@@ -1,12 +1,20 @@
 {{#if article.0.filteredBy}}
-<p>
-    Filtered by "{{article.0.filteredBy}}".
-</p>
-<button id="clear" class="button">Clear</button>
+<div>
+    Filtered by "{{article.0.filteredBy}}"
+    <button id="clear" class="button">Clear</button>
+</div>
+{{#if article.1.latest}}
+<div id="updated" class="has-background-dark has-text-primary">Last updated {{article.1.latest}}</div>
+{{/if}}
 {{/if}}
 
+{{#if article.0.latest}}
+<div id="updated" class="has-background-dark has-text-primary">Last updated {{article.0.latest}}</div>
+{{/if}}
+
+
 {{#each article}}
-<div>
+<div class="article">
     <a href={{this.link}} target="_blank" class="has-text-primary">{{this.title}}</a>
     <p>{{this.summary}}</p>
     <hr />

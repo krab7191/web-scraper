@@ -90,8 +90,9 @@ module.exports = {
                         results = this.filterResults(results, filter);
                         results.unshift({ filteredBy: filter });
                     }
+                    results = this.formatDate(results, results.length, filter.length);
+
                     console.log("Render page with articles from database.");
-                    console.log(results);
                     res.render("home", { article: results });
                     // Clear filter
                     keyword = "";
@@ -139,6 +140,25 @@ module.exports = {
             }
         });
         return results;
+    },
+    formatDate: function (resArr, number, filtered) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        if (number < 2 && filtered > 0) {
+            return resArr;
+        }
+        else if (filtered === 0) {
+            const d = resArr[0].date;
+            const nd = `${months[d.getMonth()]} ${d.getDate()} at ${d.getHours()}:${d.getMinutes()}`;
+            console.log(nd);
+            resArr[0].latest = nd;
+            resArr[1].latest = nd;
+        }
+        else if (number) {
+            const d = resArr[1].date;
+            const nd = `${months[d.getMonth()]} ${d.getDate()} at ${d.getHours()}:${d.getMinutes()}`;
+            console.log(nd);
+            resArr[1].latest = nd;
+        }
+        return resArr;
     }
-
 };

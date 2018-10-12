@@ -16,11 +16,14 @@
     <header class="hero has-text-centered has-background-primary">
         <h1 class="title">NEWSY</h1>
         <p class="subtitle">A news aggregator for current events nerds</p>
-        <div class="container has-text-centered">
-            <form>
+        <div class="container level" id="forms">
+            <form class="level-item">
                 <input class="input" type="text" placeholder="example: election" id="keyword" />
                 <input class="button" type="submit" value="Filter" id="filter" />
             </form>
+            <div class="level-item">
+                <button class="button" id="scrape">Get latest news</button>
+            </div>
         </div>
     </header>
 

@@ -3,6 +3,7 @@
 $(() => {
     // getAllArticles();
     bindFilter();
+    $("#keyword").focus();
 });
 
 function getAllArticles() {

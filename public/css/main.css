@@ -1,12 +1,12 @@
 #articles {
     max-width: 600px;
-    margin-top: 175px;
+    margin-top: 155px;
     margin-bottom: 50px;
     z-index: 0;
 }
 
 div * {
-    margin: 10px;
+    margin: 5px;
 }
 
 header, footer {
@@ -28,4 +28,37 @@ footer {
 
 #keyword {
     max-width: 350px;
+}
+
+#forms {
+    max-width: 525px;
+}
+
+.article:hover {
+    border: 1px solid hsl(171, 100%, 41%);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#updated {
+    position: fixed;
+    top: 145px;
+    right: 0;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+#updated:hover {
+    opacity: .25;
+}
+
+@media only screen and (max-width: 768px) {
+    #articles {
+        margin-top: 235px;
+    }
+    #updated {
+        position: fixed;
+        top: 198px;
+        min-width: 260px;
+    }
 }
