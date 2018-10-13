@@ -19,8 +19,9 @@ let keyword;
 
 module.exports = {
 
-    // Scrape the passed url
-    scrape: function (obj, respObj, finished) {
+    // Scrape the passed url (the link in 'obj')
+    scrape: function (obj, respObj, finished, keywd) {
+        keyword = keywd;
         let url = obj.link;
         console.log(`Begin scraping '${url}'`);
         axios.get(url).then(response => {
@@ -47,11 +48,10 @@ module.exports = {
         const elem = $("div.latest-news-topic");
         const len = elem.length;
         elem.each((i, element) => {
-            var result = {};
+            let result = {};
             result.title = $(element).children('a').text();
             result.link = urls[0].link + $(element).children('a').attr("href");
             // Since it's async, only say finished on the last one.
-            console.lo
             if (i === len - 1) {
                 this.compareArticle(result, true, respObj);
             }
@@ -80,17 +80,24 @@ module.exports = {
         keyword = filter;
         console.log(`Getting articles...`);
         console.log(`Filter: ${filter}`);
+        let filterLen;
+        if (!filter) {
+            filterLen = 0;
+        }
+        else {
+            filterLen = filter.length;
+        }
         db.Article.find({})
             .populate('comments')
             .limit(25)
-            .sort({ date: 1 })
+            .sort({ date: -1 })
             .then(results => {
                 if (results.length > 0) {
                     if (filter) {
                         results = this.filterResults(results, filter);
                         results.unshift({ filteredBy: filter });
                     }
-                    results = this.formatDate(results, results.length, filter.length);
+                    results = this.formatDate(results, results.length, filterLen);
                     // results = this.formatCommentDates(results, filter);
                     console.log("Render page with articles from database.");
                     res.render("home", { article: results });
@@ -122,6 +129,7 @@ module.exports = {
                 console.log(`Exists! ${results.title.slice(0, 10)}...`);
                 if (finished) {
                     console.log("Finished comparing articles");
+                    res.json("/");
                 }
             }
         }).catch((err) => {

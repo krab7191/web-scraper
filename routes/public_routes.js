@@ -11,7 +11,7 @@ let keyword = "";
 // -- ROUTES -- //
 
 // Post request with user's desired topic to look for when scraping
-router.post("/filter", function (req, res) {
+router.post("/filter", (req, res) => {
     keyword = req.body.keyword;
     console.log(keyword);
     res.json("/");
@@ -23,6 +23,12 @@ router.get("/", (req, res) => {
 
 router.get("/all", (req, res) => {
     control.jsonAll(res);
+});
+
+router.post("/scrape", (req, res) => {
+    keyword = req.body.keyword;
+    console.log(`Keyword is ${keyword}`);
+    control.scrape({ link: "https://www.aljazeera.com" }, res, false, keyword);
 });
 
 

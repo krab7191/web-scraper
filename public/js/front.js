@@ -6,15 +6,25 @@ $(() => {
     $("#keyword").focus();
 });
 
-function scrape() {
+$("#scrape").on("click", e => {
+    e.preventDefault();
+    let keyword = $("#keyword").val().trim();
+    scrape(keyword);
+});
+
+function scrape(keyword) {
+    $("#scrape").html("Fetching...");
+    console.log(`Scraping with: ${keyword}`);
     $.post({
-        data: "test",
+        keyword: keyword+"",
         url: "/scrape"
     }, data => {
+        $("#scrape").html("Done!");
         console.log(data);
-        if (data.message === "ok") {
-            location.reload();
-        }
+        setTimeout(() => {
+            $("#scrape").html("Get latest news");
+            window.location.replace(data);
+        }, 2000);
     });
 }
 
