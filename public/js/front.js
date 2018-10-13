@@ -75,7 +75,7 @@ function appendComments(arr) {
     for (let i = 0; i < arr.length; i++) {
         $mod.append($(arr[i]).removeClass("hidden"));
     }
-    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<textarea>")).append($("<button>").html("Submit"));
+    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<textarea>")).append($("<button>").html("Submit").addClass("button"));
 }
 
 $(".modal-background").on("click", () => {
