@@ -44,6 +44,11 @@ footer {
     margin-top: -25px;
 }
 
+.hidden {
+    visibility: hidden;
+    display: none;
+}
+
 #updated {
     position: fixed;
     top: 125px;
@@ -59,10 +64,14 @@ footer {
 @media only screen and (max-width: 768px) {
     #articles {
         margin-top: 215px;
+        margin-bottom: 0;
     }
     #updated {
         position: fixed;
         top: 178px;
         min-width: 260px;
+    }
+    footer {
+        position: relative;
     }
 }

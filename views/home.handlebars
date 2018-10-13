@@ -18,7 +18,28 @@
 <div class="article">
     <a href={{this.link}} target="_blank" class="has-text-primary">{{this.title}}</a>
     <p>{{this.summary}}</p>
+    {{#each comments}}
+    <div class="comments hidden">
+        <p class="comment"><strong>{{this.author}} on {{this.date}}</strong></p>
+        <p class="comment">{{this.body}}</p>
+    </div>
+    {{/each}}
     <hr />
 </div>
 {{/if}}
 {{/each}}
+
+{{!-- MODAL --}}
+<div id="modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <article class="media">
+                <div class="media-content" id="media-content">
+                </div>
+            </article>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{{!-- END MODAL --}}

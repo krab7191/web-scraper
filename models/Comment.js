@@ -5,8 +5,12 @@ const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new object
 const CommentSchema = new Schema({
-    title: String,
-    body: String
+    author: String,
+    body: String,
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // This creates our model from the above schema, using mongoose's model method

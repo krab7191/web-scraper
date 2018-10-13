@@ -1,21 +1,10 @@
 
-// On page load, scrape
+// On page load...
 $(() => {
     // getAllArticles();
     bindFilter();
     $("#keyword").focus();
 });
-
-function getAllArticles() {
-    $.get({
-        url: "/articles"
-    }, data => {
-        console.log(data);
-        if (data.message === "Scrape complete") {
-            location.reload();
-        }
-    });
-}
 
 function scrape() {
     $.post({
@@ -59,9 +48,37 @@ $(".article").on("click", e => {
     const targ = e.target;
     const elemType = $(targ).prop("nodeName");
     if (elemType !== "DIV") {
-        console.log("It's not a div!");
+        const comments = $(targ).parent("div.article").children("div.comments.hidden");
+        toggleModal(comments);
     }
     else {
-        console.log("It's a div!");
+        const comments = $(targ).children("div.comments.hidden");
+        toggleModal(comments);
     }
 });
+
+function toggleModal(commentArr) {
+    let $mod = $("#modal");
+    if ($mod.hasClass("is-active")) {
+        $mod.removeClass("is-active");
+    }
+    else {
+        appendComments(commentArr);
+        $mod.addClass("is-active");
+    }
+}
+
+function appendComments(arr) {
+    console.log(arr);
+    let $mod = $("#media-content");
+    $mod.empty();
+    for (let i = 0; i < arr.length; i++) {
+        $mod.append($(arr[i]).removeClass("hidden"));
+    }
+    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<textarea>")).append($("<button>").html("Submit"));
+}
+
+$(".modal-background").on("click", () => {
+    toggleModal();
+});
+

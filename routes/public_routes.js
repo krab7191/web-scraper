@@ -21,5 +21,9 @@ router.get("/", (req, res) => {
     control.getArticles(res, keyword);
 });
 
+router.get("/all", (req, res) => {
+    control.jsonAll(res);
+});
+
 
 module.exports = router;
