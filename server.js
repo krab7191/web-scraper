@@ -8,8 +8,7 @@ const express = require("express"),
     publicRoutes = require("./routes/public_routes");
 
 // Set port for Heroku
-// process.env.PORT ||
-const PORT = 9666;
+const PORT = 9666 || process.env.PORT;
 
 // Init app
 var app = express();

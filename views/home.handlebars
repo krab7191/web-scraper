@@ -16,6 +16,7 @@
 {{#each article}}
 {{#if title}}
 <div class="article" id={{this._id}}>
+    <img src="images/aj.ico" class="article-icon" />
     <a href={{this.link}} target="_blank" class="has-text-primary">{{this.title}}</a>
     <p>{{this.summary}}</p>
     {{#each comments}}
