@@ -22,12 +22,7 @@ function scrape(keyword) {
         },
         url: "/scrape"
     }, data => {
-        $("#scrape").html("Done!");
-        console.log(data);
-        setTimeout(() => {
-            $("#scrape").html("Get latest news");
-            window.location.replace(data);
-        }, 2000);
+        window.location.replace(data);
     });
 }
 
@@ -80,7 +75,8 @@ function toggleModal(commentArr, id) {
         $mod.removeClass("is-active");
     }
     else {
-        appendComments(commentArr, id);
+        let cmmts = fixDates(commentArr);
+        appendComments(cmmts, id);
         $("header").css("z-index", 0);
         $mod.addClass("is-active");
     }
@@ -139,4 +135,19 @@ function deleteComment(id) {
     }, resp => {
         window.location.replace(resp);
     });
+}
+
+function fixDates(cmts) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for (let i = 0; i < cmts.length; i++) {
+        let $elem = $(cmts[i]).children("p.author").children("span.date");
+        const d = new Date($elem.html());
+        let newDate = `${months[d.getMonth()]} ${d.getDate()} at ${d.getHours()}:${d.getMinutes()}`;
+        // Add trailing '0' for even ending minutes
+        if (!newDate[newDate.lastIndexOf(":") + 2]) {
+            newDate += "0";
+        }
+        $elem.html(newDate);
+    }
+    return cmts;
 }

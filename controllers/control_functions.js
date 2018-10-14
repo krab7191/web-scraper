@@ -95,7 +95,6 @@ module.exports = {
                         results.unshift({ filteredBy: filter });
                     }
                     results = this.formatDate(results, results.length, filterLen);
-                    // results = this.formatCommentDates(results, filter);
                     console.log("Render page with articles from database.");
                     console.log(results._id);
                     res.render("home", { article: results });
@@ -162,33 +161,6 @@ module.exports = {
             console.log(nd);
             resArr[1].latest = nd;
         }
-        return resArr;
-    },
-    // Scrap this for now, do format on front end
-    // Add a latest key to each comment with a better formatted date
-    formatCommentDates(resArr, filter) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        let start = 0;
-        // If it has been filtered, start after the first object (the filter)
-        if (filter.length > 0) {
-            start = 1;
-        }
-        // For each article...
-        resArr = resArr.forEach((curr, index) => {
-            if (index >= start) {
-                // If there are comments...
-                if (curr.comments.length > 0) {
-                    // For each comment, convert the date into human readable format
-                    curr.comments = curr.comments.forEach((cmmt, i) => {
-                        const d = cmmt.date;
-                        const nd = `${months[d.getMonth()]} ${d.getDate()} at ${d.getHours()}:${d.getMinutes()}`;
-                        cmmt.latest = nd;
-                        return cmmt;
-                    });
-                    return curr.comments;
-                }
-            }
-        });
         return resArr;
     },
     // Get articles as json for testing

@@ -21,7 +21,7 @@
     <p>{{this.summary}}</p>
     {{#each comments}}
     <div class="comments hidden">
-        <p class="comment"><strong>{{this.author}} on {{this.date}}</strong></p>
+        <p class="comment author"><strong>{{this.author}}</strong> on <span class="date">{{this.date}}</span></p>
         <p class="comment">{{this.body}}</p>
         <button class="button is-danger delete-button" id={{this._id}}>Delete</button>
     </div>
