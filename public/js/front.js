@@ -3,6 +3,7 @@
 $(() => {
     // getAllArticles();
     bindFilter();
+    commentHandlers();
     $("#keyword").focus();
 });
 
@@ -92,15 +93,23 @@ function appendComments(arr, articleId) {
     $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<p>").addClass("hidden").attr("id", "artId").attr("data-id", articleId)).append($("<input>").attr("type", "text").attr("placeholder", "Your name").attr("id", "cmmt-name")).append($("<textarea>").attr("id", "commentBody")).append($("<button>").html("Submit").addClass("button").attr("id", "addComment"));
 }
 
-$(document).on("click", "#addComment", e => {
-    const comment = {
-        author: $("#cmmt-name").val().trim(),
-        body: $("#commentBody").val().trim(),
-        date: new Date()
-    };
-    const articleId = $("#artId").attr("data-id");
-    addComment(comment, articleId);
-});
+
+function commentHandlers() {
+    $(document).on("click", "#addComment", e => {
+        turnOffCommentHandlers();
+        const comment = {
+            author: $("#cmmt-name").val().trim(),
+            body: $("#commentBody").val().trim(),
+            date: new Date()
+        };
+        const articleId = $("#artId").attr("data-id");
+        addComment(comment, articleId);
+    });
+}
+
+function turnOffCommentHandlers() {
+    $("#addComment").off("click");
+}
 
 $(".modal-background").on("click", () => {
     toggleModal();
@@ -111,7 +120,6 @@ function addComment(cmmtObj, id) {
         url: "/comment/" + id,
         data: cmmtObj
     }, resp => {
-        console.log(resp);
         window.location.replace(resp);
     });
 }
