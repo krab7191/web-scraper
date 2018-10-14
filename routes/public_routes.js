@@ -36,7 +36,6 @@ router.post("/comment/:id", (req, res) => {
 });
 
 router.get("/delete/:id", (req, res) => {
-    console.log(`Delete route hit: ${req.params.id}`);
     control.deleteComment(req.params.id, res);
 })
 

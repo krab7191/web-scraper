@@ -76,10 +76,12 @@ $(".article").on("click", e => {
 function toggleModal(commentArr, id) {
     let $mod = $("#modal");
     if ($mod.hasClass("is-active")) {
+        $("header").css("z-index", 1);
         $mod.removeClass("is-active");
     }
     else {
         appendComments(commentArr, id);
+        $("header").css("z-index", 0);
         $mod.addClass("is-active");
     }
 }
@@ -132,7 +134,6 @@ function addComment(cmmtObj, id) {
 }
 
 function deleteComment(id) {
-    console.log("firing del comment");
     $.get({
         url: "/delete/" + id
     }, resp => {
