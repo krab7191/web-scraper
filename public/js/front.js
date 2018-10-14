@@ -88,7 +88,7 @@ function appendComments(arr, articleId) {
     for (let i = 0; i < arr.length; i++) {
         $mod.append($(arr[i]).removeClass("hidden"));
     }
-    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<p>").addClass("hidden").attr("id", "artId").attr("data-id", articleId)).append($("<input>").addClass("input").attr("type", "text").attr("placeholder", "Your name").attr("id", "cmmt-name")).append($("<textarea>").addClass("textarea").attr("id", "commentBody").attr("wrap", "hard")).append($("<button>").html("Submit").addClass("button").attr("id", "addComment"));
+    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<p>").addClass("hidden").attr("id", "artId").attr("data-id", articleId)).append($("<input>").addClass("input").attr("type", "text").attr("placeholder", "Your name").attr("id", "cmmt-name")).append($("<textarea>").addClass("textarea").attr("id", "commentBody").attr("wrap", "hard").attr("placeholder", "comment")).append($("<button>").html("Submit").addClass("button").attr("id", "addComment"));
 }
 
 

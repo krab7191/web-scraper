@@ -48,6 +48,7 @@ module.exports = {
             let result = {};
             result.title = $(element).children('a').text();
             result.link = urls[0].link + $(element).children('a').attr("href");
+            result.imgsrc = "images/aj.ico";
             // Since it's async, only say finished on the last one.
             if (i === len - 1) {
                 this.compareArticle(result, true, respObj);
@@ -96,7 +97,6 @@ module.exports = {
                     }
                     results = this.formatDate(results, results.length, filterLen);
                     console.log("Render page with articles from database.");
-                    console.log(results._id);
                     res.render("home", { article: results });
                 }
                 else {
@@ -111,6 +111,7 @@ module.exports = {
 
     // Compare entries in the database to recently scraped article to avoid adding duplicates
     compareArticle: function (resultObj, finished, res) {
+        console.log(resultObj.imgsrc);
         // Compare with the existing articles
         db.Article.findOne(resultObj).then(results => {
             if (results === null) {

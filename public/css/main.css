@@ -63,6 +63,7 @@ p.comment {
     right: 0;
     padding: 5px;
     border-radius: 3px;
+    z-index: 30;
 }
 
 #updated:hover {
