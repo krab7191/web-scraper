@@ -35,5 +35,10 @@ router.post("/comment/:id", (req, res) => {
     control.addComment(req.body, req.params.id, res);
 });
 
+router.get("/delete/:id", (req, res) => {
+    console.log(`Delete route hit: ${req.params.id}`);
+    control.deleteComment(req.params.id, res);
+})
+
 
 module.exports = router;

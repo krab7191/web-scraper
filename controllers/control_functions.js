@@ -220,5 +220,14 @@ module.exports = {
                 // If an error occurred, send it to the client
                 res.json(err);
             });
+    },
+    deleteComment: function (id, res) {
+        db.Comment.deleteOne({
+            _id: id
+        }).then(resp => {
+            res.json("/");
+        }).catch(err => {
+            console.log(`Error deleting comment: ${err}`);
+        });
     }
 };

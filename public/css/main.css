@@ -13,7 +13,7 @@ header, footer {
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1;
 }
 
 header {
@@ -44,6 +44,10 @@ footer {
     cursor: pointer;
 }
 
+p.comment {
+    overflow-wrap: break-word;
+}
+
 .level {
     margin-top: -25px;
 }
@@ -66,7 +70,13 @@ footer {
 }
 
 #modal {
-    z-index: 999;
+    z-index: 999 !important;
+}
+
+#modal.box {
+    max-height: 600px;
+    margin-top: 160px;
+    overflow-y: auto;
 }
 
 @media only screen and (max-width: 768px) {
