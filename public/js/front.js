@@ -16,7 +16,9 @@ function scrape(keyword) {
     $("#scrape").html("Fetching...");
     console.log(`Scraping with: ${keyword}`);
     $.post({
-        keyword: keyword+"",
+        data: {
+            keyword: keyword
+        },
         url: "/scrape"
     }, data => {
         $("#scrape").html("Done!");
@@ -58,37 +60,58 @@ $(".article").on("click", e => {
     const targ = e.target;
     const elemType = $(targ).prop("nodeName");
     if (elemType !== "DIV") {
-        const comments = $(targ).parent("div.article").children("div.comments.hidden");
-        toggleModal(comments);
+        const comments = $(targ).parent("div.article").children("div.comments.hidden").clone();
+        const id = $(targ).parent("div.article").attr("id");
+        toggleModal(comments, id);
     }
     else {
-        const comments = $(targ).children("div.comments.hidden");
-        toggleModal(comments);
+        console.log(targ);
+        const comments = $(targ).children("div.comments.hidden").clone();
+        const id = $(targ).attr("id");
+        toggleModal(comments, id);
     }
 });
 
-function toggleModal(commentArr) {
+function toggleModal(commentArr, id) {
     let $mod = $("#modal");
     if ($mod.hasClass("is-active")) {
         $mod.removeClass("is-active");
     }
     else {
-        appendComments(commentArr);
+        appendComments(commentArr, id);
         $mod.addClass("is-active");
     }
 }
 
-function appendComments(arr) {
-    console.log(arr);
+function appendComments(arr, articleId) {
     let $mod = $("#media-content");
     $mod.empty();
     for (let i = 0; i < arr.length; i++) {
         $mod.append($(arr[i]).removeClass("hidden"));
     }
-    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<textarea>")).append($("<button>").html("Submit").addClass("button"));
+    $mod.append($("<hr>")).append($("<p>").html("Comment on this article:")).append($("<p>").addClass("hidden").attr("id", "artId").attr("data-id", articleId)).append($("<input>").attr("type", "text").attr("placeholder", "Your name").attr("id", "cmmt-name")).append($("<textarea>").attr("id", "commentBody")).append($("<button>").html("Submit").addClass("button").attr("id", "addComment"));
 }
+
+$(document).on("click", "#addComment", e => {
+    const comment = {
+        author: $("#cmmt-name").val().trim(),
+        body: $("#commentBody").val().trim(),
+        date: new Date()
+    };
+    const articleId = $("#artId").attr("data-id");
+    addComment(comment, articleId);
+});
 
 $(".modal-background").on("click", () => {
     toggleModal();
 });
 
+function addComment(cmmtObj, id) {
+    $.post({
+        url: "/comment/" + id,
+        data: cmmtObj
+    }, resp => {
+        console.log(resp);
+        window.location.replace(resp);
+    });
+}

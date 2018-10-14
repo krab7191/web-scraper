@@ -15,7 +15,7 @@
 
 {{#each article}}
 {{#if title}}
-<div class="article">
+<div class="article" id={{this._id}}>
     <a href={{this.link}} target="_blank" class="has-text-primary">{{this.title}}</a>
     <p>{{this.summary}}</p>
     {{#each comments}}

@@ -31,5 +31,9 @@ router.post("/scrape", (req, res) => {
     control.scrape({ link: "https://www.aljazeera.com" }, res, false, keyword);
 });
 
+router.post("/comment/:id", (req, res) => {
+    control.addComment(req.body, req.params.id, res);
+});
+
 
 module.exports = router;

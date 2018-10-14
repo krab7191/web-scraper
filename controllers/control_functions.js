@@ -13,15 +13,12 @@ const urls = [
     }
 ];
 
-let keyword;
-
 // -- FUNCTIONS -- //
 
 module.exports = {
 
     // Scrape the passed url (the link in 'obj')
     scrape: function (obj, respObj, finished, keywd) {
-        keyword = keywd;
         let url = obj.link;
         console.log(`Begin scraping '${url}'`);
         axios.get(url).then(response => {
@@ -33,7 +30,7 @@ module.exports = {
             else {
                 let $ = cheerio.load(response.data);
                 obj.summary = $("p.article-heading-des").text();
-                this.saveArticle(obj, respObj, finished);
+                this.saveArticle(obj, respObj, finished, keywd);
             }
         }).catch((err) => {
             console.log(`Axios error: ${err}`);
@@ -62,12 +59,13 @@ module.exports = {
     },
 
     // Given an object, create new DB document
-    saveArticle: function (obj, res, finished) {
+    saveArticle: function (obj, res, finished, keywd) {
         console.log(`Saving article: ${obj.title.slice(0, 10)}`);
         db.Article.create(obj).then(dbResp => {
+            console.log(dbResp);
             if (finished) {
                 console.log("Finished saving articles");
-                this.getArticles(res, filter);
+                this.getArticles(res, keywd);
             }
         }).catch((err) => {
             console.log(`Database err: ${err}`);
@@ -75,9 +73,8 @@ module.exports = {
         });
     },
 
-    // Get articles, filtered by most recent, then by user's keyword
+    // Get articles, filtered by most recent and by user's keyword
     getArticles: function (res, filter) {
-        keyword = filter;
         console.log(`Getting articles...`);
         console.log(`Filter: ${filter}`);
         let filterLen;
@@ -100,12 +97,10 @@ module.exports = {
                     results = this.formatDate(results, results.length, filterLen);
                     // results = this.formatCommentDates(results, filter);
                     console.log("Render page with articles from database.");
+                    console.log(results._id);
                     res.render("home", { article: results });
-                    // Clear filter
-                    keyword = "";
                 }
                 else {
-                    keyword = filter;
                     console.log("No existing articles...");
                     this.scrape(urls[0], res);
                 }
@@ -208,6 +203,22 @@ module.exports = {
                 console.log(`Error getting articles: ${err}`);
                 res.json(err);
             });
+    },
+    addComment: function (comment, artId, res) {
+        db.Comment.create(comment)
+            .then(cmmtResp => {
+                return db.Article.findOneAndUpdate(
+                    { _id: artId },
+                    { $push: { comments: cmmtResp._id } },
+                    { new: true });
+            })
+            .then(article => {
+                // If we were able to successfully update an Article, reload the page
+                res.json("/");
+            })
+            .catch(function (err) {
+                // If an error occurred, send it to the client
+                res.json(err);
+            });
     }
-
 };

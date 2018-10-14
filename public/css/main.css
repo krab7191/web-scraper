@@ -61,6 +61,10 @@ footer {
     opacity: .25;
 }
 
+#modal {
+    z-index: 999;
+}
+
 @media only screen and (max-width: 768px) {
     #articles {
         margin-top: 215px;
@@ -69,6 +73,27 @@ footer {
     #updated {
         position: fixed;
         top: 178px;
+        min-width: 260px;
+    }
+    footer {
+        position: relative;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    header p.subtitle {
+        display: none;
+    }
+    #scrape {
+        margin-top: -10px;
+    }
+    #articles {
+        margin-top: 185px;
+        margin-bottom: 0;
+    }
+    #updated {
+        position: fixed;
+        top: 138px;
         min-width: 260px;
     }
     footer {
