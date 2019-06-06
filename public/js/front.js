@@ -16,17 +16,16 @@ $('#scrape').on('click', e => {
 });
 
 function scrape(keyword) {
-	$('#scrape').html('Fetching...');
-	console.log(`Scraping with: ${keyword}`);
-	$.post({
-		data: {
-			keyword: keyword
-		},
-		url: '/scrape'
-	}, data => {
-		console.log(data);
-		window.location.replace(data);
-	});
+	// $('#scrape').html('Fetching...');
+	alert('Update in progress to resolve changes to AJ DOM');
+	// $.post({
+	// 	data: {
+	// 		keyword: keyword
+	// 	},
+	// 	url: '/scrape'
+	// }, data => {
+	// 	window.location.replace(data);
+	// });
 }
 
 function filter(allowEmpty) {
